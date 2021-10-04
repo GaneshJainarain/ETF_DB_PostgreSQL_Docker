@@ -1,13 +1,10 @@
 
 CREATE TABLE stock (
-    id SERIAL PRIMARRY KEY,
-    --Auto incrementing integer 
-    --when we insert a record into this table  itll start with a 1,2,3 etc
-    --easy way to reference a unique record in the stock table 
+    id SERIAL PRIMARY KEY,
     symbol TEXT NOT NULL,
     name TEXT NOT NULL,
     exchange TEXT NOT NULL,
-    is_etf BOOLEAN NOT NULL,
+    is_etf BOOLEAN NOT NULL
 );
 
 CREATE TABLE etf_holding (
@@ -44,3 +41,12 @@ CREATE TABLE stock_price (
     PRIMARY KEY(stock_id, dt)
     CONSTRAINT fk_stock FOREIGN KEY (srock_id) REFERENCES stock (id)
 );
+
+CREATE INDEX ON stock_price (stock_id, dt DESC);
+--Makes it faster for selecting prices for a stock, instead of scanning through the whole table
+
+SELECT create_hypertable('stock_price', 'dt');
+
+--Auto incrementing integer 
+    --when we insert a record into this table  itll start with a 1,2,3 etc
+    --easy way to reference a unique record in the stock table 
