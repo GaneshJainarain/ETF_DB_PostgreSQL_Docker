@@ -45,7 +45,7 @@ CREATE TABLE stock_price (
     CONSTRAINT fk_stock FOREIGN KEY (stock_id) REFERENCES stock (id)
 );
 
-CREATE INDEX ON stock_price (stock_id, dt DESC);
+CREATE INDEX ON stock_price (stock_id, dt DESC); 
 --Makes it faster for selecting prices for a stock, instead of scanning through the whole table
 
 SELECT create_hypertable('stock_price', 'dt');
